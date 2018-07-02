@@ -1,0 +1,106 @@
+/** LE12
+* @author M. Haemke
+* 19.06.2018
+*/
+import java.io.*;
+import java.util.*;
+public class TelefonListe	{
+	public static Scanner in = new Scanner(System.in);
+	public static Scanner a = new Scanner(System.in);
+	public static ArrayList <String> Liste = new ArrayList <String> ();
+
+	public static void hinzufügen() {
+		System.out.println("Namen eingeben");
+		Liste.add(new String (in.nextLine()));
+		System.out.println("Nummer eingeben");
+		Liste.add(new String (in.nextLine()));
+	}
+	public static void ausgeben() {
+		System.out.println(Liste);
+	}
+	public static void suchen() {
+		System.out.println("Namen eingeben");
+		String Name = in.nextLine();
+		int Index = Liste.indexOf(Name) + 1;
+		String Nummer = Liste.get(Index);
+		System.out.println(Nummer);
+	}
+	public static void löschen() {
+		System.out.println("Namen eingeben");
+		String Name = in.nextLine();
+		int Index = Liste.indexOf(Name);
+		Liste.remove(Index);
+		Liste.remove(Index);
+		System.out.println("Gelöscht!");
+	}
+	public static void speichern() {
+		System.out.println("Dateipfad eingeben");
+		String Pfad = in.nextLine();
+		try
+		{
+		PrintWriter pw = new PrintWriter(new FileOutputStream(Pfad));
+		for (int i = 0;i < Liste.size(); i++)
+		{
+		pw.println(Liste.get(i));
+		}
+		pw.close();
+	    }
+		catch(IOException i)
+		{
+		 System.out.println("Error!");
+        }
+	}
+
+	public static void lesen() {
+			System.out.println("Dateipfad eingeben");
+			File file = new File(in.nextLine());
+			try
+			{
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			String z;
+			while ((z = br.readLine()) != null)
+			{
+		    Liste.add(z);
+			}
+			br.close();
+		    }
+			catch(IOException i)
+			{
+			 System.out.println("Error!");
+	        }
+	}
+	public static void main(String args[])	{
+
+		int auswahl = 7;
+		while (auswahl != 0)
+		{
+		System.out.println("[1] zum einlesen");
+		System.out.println("[2] zum hinzufügen");
+		System.out.println("[3] zum ausgeben");
+		System.out.println("[4] zum suchen");
+		System.out.println("[5] zum löschen");
+		System.out.println("[6] zum speichern");
+		System.out.println("[0] zum beenden");
+		auswahl = a.nextInt();
+		switch (auswahl) {
+		case 1: lesen();
+				break;
+		case 2: hinzufügen();
+				break;
+		case 3: ausgeben();
+				break;
+		case 4: suchen();
+				break;
+		case 5: löschen();
+				break;
+		case 6: speichern();
+				break;
+		case 0: System.out.println("Tschüss");
+				break;
+		default: System.out.println("Nummer zu hoch!");
+				break;
+		}
+		}
+		in.close();
+	}
+}
